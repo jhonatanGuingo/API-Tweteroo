@@ -12,16 +12,19 @@ app.get('/tweets', (req, res) => {
 
 app.post('/sign-up', (req, res) => {
     usuario.push(req.body)
-    res.send('OK')
+    res.send("OK")
+    console.log(usuario)
 })
 
 app.post('/tweets', (req, res) => {
     const {username} = req.params;
-    if(!usuario.find(username)){
-        res.send('UNAUTHORIZED')
+    const usuarioRegistrado = usuario.find((pessoa) => pessoa.username === username);
+    if(usuarioRegistrado){
+        tweets.push(req.body)
+        res.send(tweets)
         return
     }
+    res.send('UNAUTHORIZED')
 
-    tweets.push(req.body)
 })
 app.listen(5000, () => console.log('server is running on port 5000'));
