@@ -7,7 +7,11 @@ app.use(express.json());
 const usuario = [];
 const tweets = [];
 app.get("/tweets", (req, res) => {
-  res.send("retorna os 10 últimos tweets");
+  if(tweets.length === 0){
+    res.send([])
+    return
+  }
+  res.send(tweets.slice(-10));
 });
 
 app.post("/sign-up", (req, res) => {
